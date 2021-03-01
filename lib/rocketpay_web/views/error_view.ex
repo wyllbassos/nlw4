@@ -18,8 +18,23 @@ defmodule RocketpayWeb.ErrorView do
     %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
   end
 
-  def render("400.json", %{result: %Changeset{} = changeset}) do
-    %{message: translate_errors(changeset)}
+  # def render("400.json", %{result: %Changeset{} = changeset}) do
+  #   %{message: translate_errors(changeset)}
+  # end
+
+  def render("400.json", %{
+        result: %Changeset{
+          errors: [
+            {:accounts,
+             {"is invalid", [_constraint, constraint_name: "balance_must_be_positive_or_zero"]}}
+          ]
+        }
+      }) do
+    %{message: %{balance: ["is invalid"]}}
+  end
+
+  def render("400.json", %{result: message}) do
+    %{message: translate_errors(message)}
   end
 
   defp translate_errors(changeset) do
