@@ -33,6 +33,10 @@ defmodule RocketpayWeb.ErrorView do
     %{message: %{balance: ["is invalid"]}}
   end
 
+  def render("400.json", %{result: %{error: message}}) do
+    %{message: message}
+  end
+
   def render("400.json", %{result: message}) do
     %{message: translate_errors(message)}
   end

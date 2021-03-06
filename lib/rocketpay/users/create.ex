@@ -1,4 +1,4 @@
-defmodule Rocketpay.User.Create do
+defmodule Rocketpay.Users.Create do
   alias Ecto.Multi
   alias Rocketpay.{Account, Repo, User}
 
